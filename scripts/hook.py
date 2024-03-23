@@ -582,8 +582,16 @@ class UnetHook(nn.Module):
 
                 hint = param.used_hint_cond
 
+
+                control_requires_rgba = False
+                if param.preprocessor['name'] == 'pixelnet2':
+                    control_requires_rgba = True
+
+                if hint.shape[1] == 3 and control_requires_rgba:
+                    hint = torch.cat([hint, torch.ones_like(hint[:, :1, :, :])], dim=1)
+
                 # ControlNet inpaint protocol
-                if hint.shape[1] == 4:
+                if hint.shape[1] == 4 and not control_requires_rgba:
                     c = hint[:, 0:3, :, :]
                     m = hint[:, 3:4, :, :]
                     m = (m > 0.5).float()

@@ -1,3 +1,4 @@
+import numpy as np
 import os
 from copy import copy
 from enum import Enum

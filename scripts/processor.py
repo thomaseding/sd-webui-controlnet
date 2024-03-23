@@ -638,6 +638,12 @@ def pixelnet(img, res=512, thr_a=512, thr_b=64, thr_c=64, pp=False, t2i_w=512, t
     return result, True
 
 
+
+def pixelnet2(img, res=512, thr_a=512, **kwargs):
+    result = img
+    return result, True
+
+
 model_free_preprocessors = [
     "reference_only",
     "reference_adain",
@@ -1032,6 +1038,22 @@ preprocessor_sliders_config = {
             "max": 256
         }
     ],
+    "pixelnet2": [
+        {
+            "name": "Image Width",
+            "value": 512,
+            "min": 64,
+            "max": 2048,
+            "step": 8
+        },
+        {
+            "name": "Image Height",
+            "value": 512,
+            "min": 64,
+            "max": 2048,
+            "step": 8
+        },
+    ],
 }
 
 preprocessor_filters = {
@@ -1055,6 +1077,7 @@ preprocessor_filters = {
     "T2I-Adapter": "none",
     "IP-Adapter": "ip-adapter_clip_sd15",
     "PixelNet": "pixelnet",
+    "PixelNet2": "pixelnet2",
 }
 
 preprocessor_filters_aliases = {
